@@ -19,26 +19,12 @@ package uk.gov.hmrc.perftests.euVatRatesApi
 import io.gatling.core.Predef._
 import io.gatling.core.structure.{PopulationBuilder, ScenarioBuilder}
 import uk.gov.hmrc.performance.conf.PerftestConfiguration
+import uk.gov.hmrc.performance.simulation.{Journey, JourneySetup}
 import uk.gov.hmrc.perftests.Scenarios
 
 import scala.concurrent.duration._
 
-class EuVatRatesSimulation extends Simulation with PerftestConfiguration {
-
-  private def withInjectedLoad(scenarioDefinitions: Seq[ScenarioDefinition]): Seq[PopulationBuilder] =
-    scenarioDefinitions.map { scenarioDefinition =>
-      val load = loadPercentage * scenarioDefinition.load
-      println(
-        s"Running scenario: ${scenarioDefinition.builder.name} at ${loadPercentage * 100}% of default ${scenarioDefinition.load} load = $load"
-      )
-
-      val injectionSteps = List(
-        rampUsersPerSec(noLoad).to(load).during(rampUpTime),
-        constantUsersPerSec(load).during(constantRateTime),
-        rampUsersPerSec(load).to(noLoad).during(rampDownTime)
-      )
-      scenarioDefinition.builder.inject(injectionSteps)
-    }
+class EuVatRatesSimulation extends Simulation with JourneySetup {
 
   val scenarioDefinitions: Seq[ScenarioDefinition] =
     Seq(
@@ -63,7 +49,7 @@ class EuVatRatesSimulation extends Simulation with PerftestConfiguration {
 
 }
 
-case class ScenarioDefinition(builder: ScenarioBuilder, load: Double) {
+case class ScenarioDefinition(builder: ScenarioBuilder, load: Double) extends Journey {
   def this(scenarioBuilder: ScenarioBuilder) {
     this(scenarioBuilder, 1.0)
   }
