@@ -23,7 +23,7 @@ import uk.gov.hmrc.perftests.euVatRatesApi.ScenarioDefinition
 package object Scenarios {
 
   def euVatRatesJourney(smokeTest: Boolean): ScenarioDefinition = {
-    val load   = 1
+    val load    = 1
     val euRates = scenario("Retrieve EU Vat Rates for Country Code, Start Date and End Date")
       .exec(
         getEuVatRates
