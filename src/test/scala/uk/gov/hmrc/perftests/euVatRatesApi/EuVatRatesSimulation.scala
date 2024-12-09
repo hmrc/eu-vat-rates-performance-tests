@@ -31,6 +31,12 @@ class EuVatRatesSimulation extends Simulation with JourneySetup {
       Scenarios.euVatRatesJourney(runSingleUserJourney)
     )
 
+  if (runLocal) {
+    before(
+      InternalAuthRequests.ensureToken()
+    )
+  }
+
   println(s"Setting up simulation")
 
   if (runSingleUserJourney) {
