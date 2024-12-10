@@ -33,20 +33,20 @@ Do **NOT** run a full performance test against staging from your local machine. 
 Run smoke test (locally) as follows:
 
 ```bash
+INTERNAL_AUTH_TOKEN=0dde8067-87d2-4bda-95a7-aa9557e6ae83 \ 
 sbt -Dperftest.runSmokeTest=true -DrunLocal=true gatling:test
 ```
 
 Run full performance test (locally) as follows:
 
 ```bash
+INTERNAL_AUTH_TOKEN=0dde8067-87d2-4bda-95a7-aa9557e6ae83 \ 
 sbt -DrunLocal=true gatling:test
 ```
 
-Run smoke test (staging) as follows:
+Smoke tests and full runs can be accessed on Jenkins:
+https://performance.tools.staging.tax.service.gov.uk/view/Import%20One%20Stop%20Shop%20performance%20tests/job/eu-vat-rates-performance-tests/
 
-```bash
-sbt -Dperftest.runSmokeTest=true -DrunLocal=false gatling:test
-```
 
 ## Scalafmt
 

@@ -20,6 +20,7 @@ import io.gatling.core.Predef._
 import io.gatling.core.structure.ChainBuilder
 import io.gatling.http.Predef._
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
+import io.gatling.http.HeaderNames
 
 object EuVatRatesRequests extends ServicesConfiguration {
 
@@ -29,10 +30,13 @@ object EuVatRatesRequests extends ServicesConfiguration {
   val startDate: String   = "2023-10-01"
   val endDate: String     = "2023-10-31"
 
+  private val token = sys.env("INTERNAL_AUTH_TOKEN")
+
   def getEuVatRates: ChainBuilder =
     exec(
       http("Get EU Vat Rates for country code, start date and end date")
         .get(s"$baseUrl$getRatesUrl/$countryCode?startDate=$startDate&endDate=$endDate")
+        .header(HeaderNames.Authorization, token)
         .check(status.is(200))
     )
 
