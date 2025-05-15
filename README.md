@@ -1,5 +1,3 @@
-**This is a template README.md.  Be sure to update this with project specific content that describes your performance test project.**
-
 # eu-vat-rates-performance-tests
 
 Performance test suite for the `eu-vat-rates`, using [performance-test-runner](https://github.com/hmrc/performance-test-runner) under the hood.
@@ -33,8 +31,10 @@ Do **NOT** run a full performance test against staging from your local machine. 
 Run smoke test (locally) as follows:
 
 ```bash
-INTERNAL_AUTH_TOKEN=0dde8067-87d2-4bda-95a7-aa9557e6ae83 \ 
+INTERNAL_AUTH_TOKEN=0dde8067-87d2-4bda-95a7-aa9557e6ae83 \
 sbt -Dperftest.runSmokeTest=true -DrunLocal=true gatling:test
+
+Note: ensure there is no space after the backslash otherwise this will error
 ```
 
 Run full performance test (locally) as follows:
